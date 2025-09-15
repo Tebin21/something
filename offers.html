@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Offers - Cro Agency</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .offers-hero {
+            background: linear-gradient(135deg, var(--primary-red) 0%, #ff4757 100%);
+            padding: 120px 0 80px;
+            color: var(--pure-white);
+            text-align: center;
+        }
+
+        .offers-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .offers-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            padding: 100px 0;
+        }
+
+        .offer-card {
+            background: var(--pure-white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-color: var(--primary-red);
+        }
+
+        .offer-card.featured {
+            border-color: var(--primary-red);
+            transform: scale(1.05);
+        }
+
+        .offer-card.featured::before {
+            content: attr(data-badge);
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--primary-red);
+            color: var(--pure-white);
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .offer-header {
+            margin-bottom: 2rem;
+        }
+
+        .offer-title {
+            font-size: 1.8rem;
+            color: var(--dark-black);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .offer-price {
+            font-size: 3rem;
+            color: var(--primary-red);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .offer-period {
+            color: var(--medium-gray);
+            font-size: 1rem;
+        }
+
+        .offer-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: right;
+        }
+
+        .offer-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-gray);
+            position: relative;
+            padding-right: 2rem;
+            color: var(--medium-gray);
+        }
+
+        .offer-features li:last-child {
+            border-bottom: none;
+        }
+
+        .offer-features li::before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: var(--primary-red);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .offer-features li.not-included {
+            opacity: 0.5;
+        }
+
+        .offer-features li.not-included::before {
+            content: "✗";
+            color: var(--medium-gray);
+        }
+
+        .offer-button {
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .discount-banner {
+            background: var(--primary-red);
+            color: var(--pure-white);
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .guarantee-section {
+            background: var(--light-gray);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .guarantee-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .guarantee-content h2 {
+            font-size: 2.5rem;
+            color: var(--dark-black);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .guarantee-content p {
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .guarantee-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .guarantee-item {
+            background: var(--pure-white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .guarantee-item i {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .guarantee-item h3 {
+            color: var(--dark-black);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .guarantee-item p {
+            color: var(--medium-gray);
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .offers-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .offers-grid {
+                grid-template-columns: 1fr;
+                padding: 50px 0;
+            }
+
+            .offer-card.featured {
+                transform: none;
+            }
+
+            .guarantee-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h2>CRO AGENCY</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" data-en="Home" data-ku="سەرەتا">Home</a>
+                <a href="index.html#services" data-en="Services" data-ku="خزمەتگوزاریەکان">Services</a>
+                <a href="index.html#about" data-en="About" data-ku="دەربارەمان">About</a>
+                <a href="index.html#why-choose" data-en="Why Us" data-ku="بۆچی ئێمە">Why Us</a>
+                <a href="offers.html" class="active" data-en="Offers" data-ku="ئۆفەرەکان">Offers</a>
+                <a href="index.html#contact" data-en="Contact" data-ku="پەیوەندی">Contact</a>
+            </div>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ku">KU</button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Offers Hero -->
+    <section class="offers-hero">
+        <div class="container">
+            <h1 data-en="Special Offers" data-ku="ئۆفەرە تایبەتەکان">Special Offers</h1>
+            <p data-en="We have special discounts now for social media management packages" data-ku="داشکاندنی تایبەتمان هەیە لە ئێستایا بۆ پاکێجەکانی بەڕێوەبردنی سۆشیاڵ میدیا">We have special discounts now for social media management packages</p>
+            <div class="discount-banner">
+                <i class="fas fa-fire"></i>
+                <span data-en="30% Discount for the first three months!" data-ku="داشکاندنی ٣٠٪ بۆ سێ مانگی یەکەم!">30% Discount for the first three months!</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="offers">
+        <div class="container">
+            <div class="offers-grid">
+                <!-- Basic Package -->
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <h3 class="offer-title" data-en="Basic Package" data-ku="پاکێجی بنەڕەتی">Basic Package</h3>
+                        <div class="offer-price">$299</div>
+                        <div class="offer-period" data-en="per month" data-ku="مانگانە">per month</div>
+                    </div>
+                    <ul class="offer-features">
+                        <li data-en="Management of 2 social media pages" data-ku="بەڕێوەبردنی ٢ پەیجی سۆشیاڵ میدیا">Management of 2 social media pages</li>
+                        <li data-en="10 posts per month" data-ku="١٠ پۆستی مانگانە">10 posts per month</li>
+                        <li data-en="Basic graphic design" data-ku="دیزاینی گرافیک بنەڕەتی">Basic graphic design</li>
+                        <li data-en="Monthly report" data-ku="ڕاپۆرتی مانگانە">Monthly report</li>
+                        <li class="not-included" data-en="Post sponsorship" data-ku="سپۆنسەرکردنی پۆست">Post sponsorship</li>
+                        <li class="not-included" data-en="Professional photography" data-ku="وێنەگرتنی پیشەیی">Professional photography</li>
+                        <li class="not-included" data-en="24/7 support" data-ku="پشتگیری ٢٤/٧">24/7 support</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary offer-button" data-en="Choose" data-ku="هەڵبژاردن">Choose</a>
+                </div>
+
+                <!-- Professional Package -->
+                <div class="offer-card featured" data-badge="Most Popular" data-badge-en="Most Popular" data-badge-ku="زۆرترین بەکارهێنان">
+                    <div class="offer-header">
+                        <h3 class="offer-title" data-en="Professional Package" data-ku="پاکێجی پڕۆفیشناڵ">Professional Package</h3>
+                        <div class="offer-price">$499</div>
+                        <div class="offer-period" data-en="per month" data-ku="مانگانە">per month</div>
+                    </div>
+                    <ul class="offer-features">
+                        <li data-en="Management of 4 social media pages" data-ku="بەڕێوەبردنی ٤ پەیجی سۆشیاڵ میدیا">Management of 4 social media pages</li>
+                        <li data-en="20 posts per month" data-ku="٢٠ پۆستی مانگانە">20 posts per month</li>
+                        <li data-en="Advanced graphic design" data-ku="دیزاینی گرافیک پێشکەوتوو">Advanced graphic design</li>
+                        <li data-en="Weekly report" data-ku="ڕاپۆرتی هەفتانە">Weekly report</li>
+                        <li data-en="5 sponsored posts" data-ku="سپۆنسەرکردنی ٥ پۆست">5 sponsored posts</li>
+                        <li data-en="Professional photography (2 times)" data-ku="وێنەگرتنی پیشەیی (٢ جار)">Professional photography (2 times)</li>
+                        <li data-en="Business hours support" data-ku="پشتگیری کاتی کار">Business hours support</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary offer-button" data-en="Choose" data-ku="هەڵبژاردن">Choose</a>
+                </div>
+
+                <!-- Premium Package -->
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <h3 class="offer-title" data-en="Premium Package" data-ku="پاکێجی پرێمیۆم">Premium Package</h3>
+                        <div class="offer-price">$799</div>
+                        <div class="offer-period" data-en="per month" data-ku="مانگانە">per month</div>
+                    </div>
+                    <ul class="offer-features">
+                        <li data-en="Management of 6 social media pages" data-ku="بەڕێوەبردنی ٦ پەیجی سۆشیاڵ میدیا">Management of 6 social media pages</li>
+                        <li data-en="30 posts per month" data-ku="٣٠ پۆستی مانگانە">30 posts per month</li>
+                        <li data-en="Graphic design and animation" data-ku="دیزاینی گرافیک و ئەنیمەیشن">Graphic design and animation</li>
+                        <li data-en="Daily reports" data-ku="ڕاپۆرتی ڕۆژانە">Daily reports</li>
+                        <li data-en="10 sponsored posts" data-ku="سپۆنسەرکردنی ١٠ پۆست">10 sponsored posts</li>
+                        <li data-en="Professional photography (4 times)" data-ku="وێنەگرتنی پیشەیی (٤ جار)">Professional photography (4 times)</li>
+                        <li data-en="24/7 support" data-ku="پشتگیری ٢٤/٧">24/7 support</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary offer-button" data-en="Choose" data-ku="هەڵبژاردن">Choose</a>
+                </div>
+
+                <!-- Logo Design Package -->
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <h3 class="offer-title" data-en="Logo Design Package" data-ku="پاکێجی لۆگۆ">Logo Design Package</h3>
+                        <div class="offer-price">$199</div>
+                        <div class="offer-period" data-en="one time" data-ku="یەک جار">one time</div>
+                    </div>
+                    <ul class="offer-features">
+                        <li data-en="3 different logo designs" data-ku="٣ دیزاینی لۆگۆی جیاواز">3 different logo designs</li>
+                        <li data-en="Unlimited revisions" data-ku="گۆڕانکاری بێسنوور">Unlimited revisions</li>
+                        <li data-en="AI, PNG, JPG formats" data-ku="فۆرماتی AI, PNG, JPG">AI, PNG, JPG formats</li>
+                        <li data-en="Usage guidelines" data-ku="ڕێنمایی بەکارهێنان">Usage guidelines</li>
+                        <li data-en="30 day guarantee" data-ku="گەرەنتی ٣٠ ڕۆژ">30 day guarantee</li>
+                        <li class="not-included" data-en="Complete identity" data-ku="ئایدێنتیتی تەواو">Complete identity</li>
+                        <li class="not-included" data-en="Business card" data-ku="کارتی بازرگانی">Business card</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary offer-button" data-en="Request" data-ku="داواکردن">Request</a>
+                </div>
+
+                <!-- IT Solutions Package -->
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <h3 class="offer-title" data-en="IT Solutions" data-ku="چارەسەری IT">IT Solutions</h3>
+                        <div class="offer-price">$149</div>
+                        <div class="offer-period" data-en="per hour" data-ku="ساعەت">per hour</div>
+                    </div>
+                    <ul class="offer-features">
+                        <li data-en="Computer repair" data-ku="چاکردنەوەی کۆمپیوتەر">Computer repair</li>
+                        <li data-en="Software installation" data-ku="دامەزراندنی نەرمەکاڵا">Software installation</li>
+                        <li data-en="Network solutions" data-ku="چارەسەری نێتوۆرک">Network solutions</li>
+                        <li data-en="Data protection" data-ku="پاراستنی داتا">Data protection</li>
+                        <li data-en="System upgrade" data-ku="پەرەپێدانی سیستەم">System upgrade</li>
+                        <li data-en="Remote support" data-ku="پشتگیری دوورەوە">Remote support</li>
+                        <li data-en="Work guarantee" data-ku="گەرەنتی کار">Work guarantee</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary offer-button" data-en="Contact" data-ku="پەیوەندی">Contact</a>
+                </div>
+
+                <!-- Security Camera Package -->
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <h3 class="offer-title" data-en="Security Cameras" data-ku="کامێرای چاودێری">Security Cameras</h3>
+                        <div class="offer-price">$999</div>
+                        <div class="offer-period" data-en="complete system" data-ku="سیستەمی تەواو">complete system</div>
+                    </div>
+                    <ul class="offer-features">
+                        <li data-en="4 HD cameras" data-ku="٤ کامێرای HD">4 HD cameras</li>
+                        <li data-en="Professional installation" data-ku="دامەزراندنی پڕۆفیشناڵ">Professional installation</li>
+                        <li data-en="Recording system" data-ku="سیستەمی تۆمارکردن">Recording system</li>
+                        <li data-en="Mobile app" data-ku="ئەپی مۆبایل">Mobile app</li>
+                        <li data-en="Day and night monitoring" data-ku="چاودێری شەو و ڕۆژ">Day and night monitoring</li>
+                        <li data-en="Motion alerts" data-ku="هۆشیاری بزوێنەر">Motion alerts</li>
+                        <li data-en="2 year warranty" data-ku="گەرەنتی ٢ ساڵ">2 year warranty</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary offer-button" data-en="Request" data-ku="داواکردن">Request</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee Section -->
+    <section class="guarantee-section">
+        <div class="container">
+            <div class="guarantee-content">
+                <h2 data-en="Why Choose CRO?" data-ku="بۆچی کرۆ هەڵبژێرم؟">Why Choose CRO?</h2>
+                <p data-en="We have special discounts now for social media management packages. Our prices are very suitable and what's great is that once you choose our package, after the discount period, the price will not increase and for those who agreed with us during the discount, we will continue at the same price as long as they want." data-ku="داشکاندنی تایبەتمان هەیە لە ئێستایا بۆ پاکێجەکانی بەڕێوەبردنی سۆشیاڵ میدیا نرخەکانمان زۆۆر گونجاون و ئەوەی باشە یەک جار کە پاکێجەکەمانت هەڵبژارد دوای ماوەی داشکاندنەکە نرخەکە بەرز نابێتەوە و بۆ ئەو کەسەی لە داشکاندنەکە ڕێککەوتووە لەگەڵمان تا ئەو بییەوێت بە هەمان نرخ بەردەوامەبین">We have special discounts now for social media management packages. Our prices are very suitable and what's great is that once you choose our package, after the discount period, the price will not increase and for those who agreed with us during the discount, we will continue at the same price as long as they want.</p>
+                
+                <div class="guarantee-features">
+                    <div class="guarantee-item">
+                        <i class="fas fa-lock"></i>
+                        <h3 data-en="Fixed Price" data-ku="نرخی جێگیر">Fixed Price</h3>
+                        <p data-en="Price won't increase after discount" data-ku="دوای داشکاندنەکە نرخ بەرز نابێتەوە">Price won't increase after discount</p>
+                    </div>
+                    <div class="guarantee-item">
+                        <i class="fas fa-percentage"></i>
+                        <h3 data-en="Special Discount" data-ku="داشکاندنی تایبەت">Special Discount</h3>
+                        <p data-en="30% discount for first 3 months" data-ku="داشکاندنی ٣٠٪ بۆ سێ مانگی یەکەم">30% discount for first 3 months</p>
+                    </div>
+                    <div class="guarantee-item">
+                        <i class="fas fa-handshake"></i>
+                        <h3 data-en="Quality Guarantee" data-ku="گەرەنتی کوالیتی">Quality Guarantee</h3>
+                        <p data-en="Professional work and high quality" data-ku="ئیشی پڕۆفیشناڵ و کوالیتی بەرز">Professional work and high quality</p>
+                    </div>
+                    <div class="guarantee-item">
+                        <i class="fas fa-headset"></i>
+                        <h3 data-en="Continuous Support" data-ku="پشتگیری بەردەوام">Continuous Support</h3>
+                        <p data-en="Support team ready anytime" data-ku="تیمی پشتگیری ئامادە لە هەموو کاتێک">Support team ready anytime</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 data-en="Ready to Get Started?" data-ku="ئامادەی دەستپێکردن؟">Ready to Get Started?</h2>
+                <p data-en="Contact us now and benefit from our special discounts" data-ku="پەیوەندیمان پێوە بکە ئێستا و سوود لە داشکاندنە تایبەتەکانمان وەربگرە">Contact us now and benefit from our special discounts</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+                    <a href="index.html#contact" class="btn btn-primary" data-en="Contact Now" data-ku="پەیوەندی ئێستا">Contact Now</a>
+                    <a href="tel:+964750123456" class="btn btn-secondary">
+                        <i class="fas fa-phone"></i> <span data-en="Call Us" data-ku="پەنگ بکە">Call Us</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CRO AGENCY</h3>
+                    <p data-en="Professional Marketing and Design Agency" data-ku="ئایجێنسی پڕۆفیشناڵی مارکێتینگ و دیزاین">Professional Marketing and Design Agency</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 data-en="Packages" data-ku="پاکێجەکان">Packages</h4>
+                    <ul>
+                        <li><a href="#offers" data-en="Basic Package" data-ku="پاکێجی بنەڕەتی">Basic Package</a></li>
+                        <li><a href="#offers" data-en="Professional Package" data-ku="پاکێجی پڕۆفیشناڵ">Professional Package</a></li>
+                        <li><a href="#offers" data-en="Premium Package" data-ku="پاکێجی پرێمیۆم">Premium Package</a></li>
+                        <li><a href="#offers" data-en="Custom Services" data-ku="خزمەتگوزاری تایبەت">Custom Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-ku="بەستەرەکان">Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html" data-en="Home" data-ku="سەرەتا">Home</a></li>
+                        <li><a href="index.html#about" data-en="About" data-ku="دەربارەمان">About</a></li>
+                        <li><a href="offers.html" data-en="Offers" data-ku="ئۆفەرەکان">Offers</a></li>
+                        <li><a href="index.html#contact" data-en="Contact" data-ku="پەیوەندی">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-en="Contact Info" data-ku="زانیاری پەیوەندی">Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +964 750 123 4567</li>
+                        <li><i class="fas fa-envelope"></i> info@croagency.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span data-en="Erbil, Kurdistan" data-ku="هەولێر، کوردستان">Erbil, Kurdistan</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-en="&copy; 2025 CRO AGENCY. All rights reserved." data-ku="&copy; 2025 CRO AGENCY. هەموو مافەکان پارێزراون.">&copy; 2025 CRO AGENCY. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-to-home" title="Back to Home" data-title-en="Back to Home" data-title-ku="گەڕانەوە بۆ ماڵەوە">
+        <i class="fas fa-home"></i>
+    </a>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
